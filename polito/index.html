@@ -1,0 +1,83 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>POLITO</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="./app.js"></script>
+	<style>
+
+		.container
+		{
+			border 	: 1px black solid;
+			width 	: 300px;
+		}
+
+		.polito-message
+		{
+			font-family 	: "Helvetica Neue", Arial, Helvetica, sans-serif;
+			font-size: 300px;
+		}
+
+		.around
+		{
+			background-color: blue;
+			width: 50px;
+			height: 50px;
+		}
+
+		.around::after, .around:after
+		{
+			content: "WOW";
+			background-color: green;
+			width: 100px;
+			height: 100px;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<span class="polito-message">hello.</span>
+</div>
+
+<input type="text" class="message" />
+<input type="text" value="0.525" class="ratio" />
+
+
+	<div>
+		<input name="radio-biere-foot0" value="1" type="radio" />
+		<input name="radio-biere-foot0" value="2" type="radio" />
+	</div>
+
+	<div>
+		<input name="radio-biere-foot1" value="1" type="radio" />
+		<input name="radio-biere-foot1" value="2" type="radio" />
+	</div>
+
+	<div>
+		<input name="radio-biere-foot2" value="1" type="radio" />
+		<input name="radio-biere-foot2" value="2" type="radio" />
+	</div>
+
+	<div>
+		<input name="radio-biere-foot3" value="1" type="radio" />
+		<input name="radio-biere-foot3" value="2" type="radio" />
+		<input name="radio-biere-foot3" value="3" type="radio" />
+	</div>
+
+	<button class="focuser">Focuuuuuussssss</button>
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<div class="around"></div>
+
+
+
+</body>
+</html>

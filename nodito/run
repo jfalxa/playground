@@ -1,0 +1,2 @@
+cd ~/workspace/experiments/nodito
+node server.js

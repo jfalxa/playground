@@ -1,0 +1,17 @@
+canvas
+{
+	background: #F3F3F3;
+	position: absolute;
+}
+
+#spritemap
+{
+	top: 5px;
+	left: 5px;
+}
+
+#preview
+{
+	top: 50px;
+	left: 555px;
+}

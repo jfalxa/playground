@@ -1,0 +1,42 @@
+{
+	"people": [
+		{
+			"name": "pedro",
+			"age": 23,
+			"tags": [1,2,3,4,5]
+		},
+		{
+			"name": "maria",
+			"age": 28,
+			"tags": [1,4,5]
+		},
+		{
+			"name": "jenofa",
+			"age": 21,
+			"tags": [1,2,9]
+		},
+		{
+			"name": "alejandro",
+			"age": 25,
+			"tags": [3,4,5]
+		},
+		{
+			"name": "manolo",
+			"age": 38,
+			"tags": [1,4,5]
+		}
+	],
+
+	"tags":
+	[
+		"happy",
+		"sad",
+		"enthousiastic",
+		"tired",
+		"disapointed",
+		"excited",
+		"bored",
+		"hungry",
+		"angry"
+	]
+}
