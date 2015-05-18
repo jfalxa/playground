@@ -1,15 +1,18 @@
 var Recipe = require( '../models/Recipe.model.js' );
 
 
-var onComplete = function ( reply, err, data )
+var onComplete = function ( reply )
 {
-    if ( err )
+    return function ( err, data )
     {
-        reply( err );
-    }
-    else
-    {
-        reply( data );
+        if ( err )
+        {
+            reply( err );
+        }
+        else
+        {
+            reply( data );
+        }
     }
 };
 
@@ -17,68 +20,74 @@ var onComplete = function ( reply, err, data )
 var RecipeRoutes =
 [
     {
-        path    : '/recipe',
+        path    : '/recipes',
         method  : 'GET',
         handler : function ( request, reply )
         {
-            Recipe.getAll().complete( onComplete.bind( this, reply ) );
+            Recipe.findAll()
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/recipe',
+        path    : '/recipes',
         method  : 'POST',
         handler : function ( request, reply )
         {
             var recipeData = request.payload;
 
-            Recipe.createRecipe( recipeData ).complete( onComplete.bind( this, reply ) );
+            Recipe.create( recipeData )
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/recipe/{id}',
+        path    : '/recipes/{id}',
         method  : 'GET',
         handler : function ( request, reply )
         {
             var recipeId = request.params.id;
 
-            Recipe.getRecipe( recipeId ).complete( onComplete.bind( this, reply ) );
+            Recipe.get( recipeId )
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/recipe/{id}',
+        path    : '/recipes/{id}',
         method  : 'PUT',
         handler : function ( request, reply )
         {
             var recipeId   = request.params.id;
             var recipeData = request.payload;
 
-            Recipe.updateRecipe( recipeId, recipeData ).complete( onComplete.bind( this, reply ) );
+            Recipe.update( recipeData, { where: { id: recipeId } } )
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/recipe/{id}/ingredients',
+        path    : '/recipes/{id}/ingredients',
         method  : 'GET',
         handler : function ( request, reply )
         {
             var recipeId = request.params.id;
 
-            Recipe.listIngredients( recipeId ).complete( onComplete.bind( this, reply ) );
+            Recipe.listIngredients( recipeId )
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/recipe/{id}/ingredients',
+        path    : '/recipes/{id}/ingredients',
         method  : 'PUT',
         handler : function ( request, reply )
         {
             var recipeId       = request.params.id;
             var ingredientData = request.payload;
 
-            Recipe.addIngredient( recipeId, ingredientData ).complete( onComplete.bind( this, reply ) );
+            Recipe.addIngredient( recipeId, ingredientData )
+                .complete( onComplete( reply ) );
         }
     },
 ];

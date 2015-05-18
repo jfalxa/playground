@@ -1,0 +1,14 @@
+{
+    "esnext"        : true,
+    "moz"           : true,
+    "strict"        : true,
+    "undef"         : true,
+    "unused"        : true,
+
+    "browser"       : true,
+    "browserify"    : true,
+    "jquery"        : true,
+    "node"          : true,
+
+    "globals"       : {}
+}

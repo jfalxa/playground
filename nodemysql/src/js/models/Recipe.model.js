@@ -1,6 +1,5 @@
-var db         = require( '../utils/db' );
-var Ingredient = require( './Ingredient.model' );
-var Sequelize  = require( 'sequelize' );
+var db              = require( '../utils/db' );
+var Sequelize       = require( 'sequelize' );
 
 
 var recipeSchema =
@@ -8,63 +7,39 @@ var recipeSchema =
     name : Sequelize.STRING
 };
 
-
-var RecipeModel      = db.define( 'Recipe', recipeSchema );
-var RecipeIngredient = db.define( 'RecipeIngredient' );
-
-RecipeModel.belongsToMany( Ingredient.model, { through: RecipeIngredient } );
-Ingredient.model.belongsToMany( RecipeModel, { through: RecipeIngredient } );
-
-RecipeModel.sync();
-RecipeIngredient.sync();
-
-
-var Recipe =
+var Recipe = db.define( 'Recipe', recipeSchema,
 {
-    model : RecipeModel,
-
-    getAll : function ()
+    classMethods :
     {
-        return Recipe.model.findAll();
-    },
+        get : function ( id )
+        {
+            return this.find( { where: { id: id } } );
+        },
 
-    createRecipe : function ( recipeData )
-    {
-        return Recipe.model.create( recipeData );
-    },
 
-    getRecipe : function ( recipeId )
-    {
-        return Recipe.model.find( { where: { id: recipeId } } );
-    },
+        addIngredient : function ( recipeId, ingredient )
+        {
+            return Recipe.getRecipe( recipeId )
+                .then( function ( recipe )
+                {
+                    return recipe.addIngredient( ingredient.id );
+                } );
+        },
 
-    updateRecipe : function ( recipeId, recipeData )
-    {
-        return Recipe.getRecipe( recipeId )
-            .then( function ( recipe )
-            {
-                return recipe.updateAttributes( recipeData );
-            } );
-    },
 
-    addIngredient : function ( recipeId, ingredient )
-    {
-        return Recipe.getRecipe( recipeId )
-            .then( function ( recipe )
-            {
-                return recipe.addIngredient( ingredient.id );
-            } );
-    },
-
-    listIngredients : function ( recipeId )
-    {
-        return Recipe.getRecipe( recipeId )
-            .then( function ( recipe )
-            {
-                return recipe.getIngredients();
-            } );
+        listIngredients : function ( recipeId )
+        {
+            return Recipe.getRecipe( recipeId )
+                .then( function ( recipe )
+                {
+                    return recipe.getIngredients();
+                } );
+        }
     }
-};
+
+} );
+
+Recipe.sync();
 
 
 module.exports = Recipe;

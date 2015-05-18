@@ -1,15 +1,18 @@
-var Ingredient = require( '../models/ingredient.model.js' );
+var Ingredient = require( '../models/Ingredient.model' );
 
 
-var onComplete = function ( reply, err, data )
+var onComplete = function ( reply )
 {
-    if ( err )
+    return function ( err, data )
     {
-        reply( err );
-    }
-    else
-    {
-        reply( data );
+        if ( err )
+        {
+            reply( err );
+        }
+        else
+        {
+            reply( data );
+        }
     }
 };
 
@@ -17,45 +20,49 @@ var onComplete = function ( reply, err, data )
 var ingredientRoutes =
 [
     {
-        path    : '/ingredient',
+        path    : '/ingredients',
         method  : 'GET',
         handler : function ( request, reply )
         {
-            Ingredient.getAll().complete( onComplete.bind( this, reply ) );
+            Ingredient.findAll()
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/ingredient',
+        path    : '/ingredients',
         method  : 'POST',
         handler : function ( request, reply )
         {
             var ingredientData = request.payload;
 
-            Ingredient.createIngredient( ingredientData ).complete( onComplete.bind( this, reply ) );
+            Ingredient.create( ingredientData )
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/ingredient/{id}',
+        path    : '/ingredients/{id}',
         method  : 'GET',
         handler : function ( request, reply )
         {
             var ingredientId = request.params.id;
 
-            Ingredient.getIngredient( ingredientId ).complete( onComplete.bind( this, reply ) );
+            Ingredient.find( { where: { id: ingredientId } } )
+                .complete( onComplete( reply ) );
         }
     },
 
     {
-        path    : '/ingredient/{id}',
+        path    : '/ingredients/{id}',
         method  : 'PUT',
         handler : function ( request, reply )
         {
             var ingredientId   = request.params.id;
             var ingredientData = request.payload;
 
-            Ingredient.updateIngredient( ingredientId, ingredientData ).complete( onComplete.bind( this, reply ) );
+            Ingredient.update( ingredientData, { where: { id: ingredientId } } )
+                .complete( onComplete( reply ) );
         }
     },
 ];

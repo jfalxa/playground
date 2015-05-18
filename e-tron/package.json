@@ -1,0 +1,11 @@
+{
+  "name": "e-tron",
+  "version": "0.0.1",
+  "description": "un truc qui pue",
+  "main": "index.js",
+  "scripts": {
+    "test": "wow"
+  },
+  "author": "wow",
+  "license": "wow"
+}
